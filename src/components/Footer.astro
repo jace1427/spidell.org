@@ -1,0 +1,14 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t py-10" style="border-color: var(--color-border);">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 text-sm md:flex-row md:items-center md:justify-between" style="color: var(--color-muted);">
+    <p>&copy; {year} Justin Spidell</p>
+    <nav class="flex flex-wrap gap-4" aria-label="Footer">
+      <a href="mailto:justin@spidell.org" class="no-underline" style="color: var(--color-muted);">justin@spidell.org</a>
+      <a href="https://github.com/jspidell" class="no-underline" style="color: var(--color-muted);" rel="noopener noreferrer">GitHub</a>
+      <a href="/blog" class="no-underline" style="color: var(--color-muted);">Blog</a>
+    </nav>
+  </div>
+</footer>

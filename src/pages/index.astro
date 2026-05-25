@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostCard from '../components/PostCard.astro';
+import {
+  getFeaturedProjects,
+  getPublishedBlogPosts,
+} from '../utils/collections';
+
+const featuredProjects = await getFeaturedProjects();
+const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
+---
+
+<BaseLayout
+  title="Justin Spidell"
+  description="Personal site — projects, blog, and contact."
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <p class="text-sm font-medium uppercase tracking-widest" style="color: var(--color-accent);">
+      justin.spidell.org
+    </p>
+    <h1 class="mt-4 max-w-2xl text-4xl md:text-5xl lg:text-6xl">
+      Hi, I'm Justin — I build software and write about what I learn.
+    </h1>
+    <p class="mt-6 max-w-xl text-lg" style="color: var(--color-muted);">
+      Welcome to my corner of the web. Explore projects I've shipped, read the blog, or get in touch.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href="/projects"
+        class="inline-block rounded-md px-5 py-2.5 text-sm font-medium text-white no-underline"
+        style="background: var(--color-accent);"
+      >
+        View projects
+      </a>
+      <a
+        href="/contact"
+        class="inline-block rounded-md border px-5 py-2.5 text-sm font-medium no-underline"
+        style="border-color: var(--color-border); color: var(--color-fg);"
+      >
+        Contact
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-16">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <h2 class="text-2xl md:text-3xl">Featured projects</h2>
+      <a href="/projects" class="text-sm no-underline">All projects →</a>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl border-t px-6 py-16" style="border-color: var(--color-border);">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <h2 class="text-2xl md:text-3xl">Recent posts</h2>
+      <a href="/blog" class="text-sm no-underline">All posts →</a>
+    </div>
+    <div class="max-w-2xl">
+      {recentPosts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="rounded-md border px-3 py-1.5 text-sm transition-colors"
+  style="border-color: var(--color-border); color: var(--color-muted);"
+  aria-label="Toggle dark mode"
+>
+  <span class="theme-icon-light" hidden>Light</span>
+  <span class="theme-icon-dark" hidden>Dark</span>
+</button>
+
+<script>
+  const storageKey = 'theme';
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const iconLight = document.querySelector('.theme-icon-light');
+  const iconDark = document.querySelector('.theme-icon-dark');
+
+  function getPreferredTheme(): 'light' | 'dark' {
+    const stored = localStorage.getItem(storageKey);
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme: 'light' | 'dark') {
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+      iconLight?.removeAttribute('hidden');
+      iconDark?.setAttribute('hidden', '');
+    } else {
+      root.removeAttribute('data-theme');
+      iconDark?.removeAttribute('hidden');
+      iconLight?.setAttribute('hidden', '');
+    }
+  }
+
+  applyTheme(getPreferredTheme());
+
+  toggle?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(storageKey, next);
+    applyTheme(next);
+  });
+</script>

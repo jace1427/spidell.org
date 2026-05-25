@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getPublishedProjects } from '../../utils/collections';
+
+const projects = await getPublishedProjects();
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected projects and experiments by Justin Spidell."
+>
+  <section class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+    <h1 class="text-4xl md:text-5xl">Projects</h1>
+    <p class="mt-4 max-w-xl text-lg" style="color: var(--color-muted);">
+      Things I've built or contributed to. Replace placeholder entries with your real repos and demos.
+    </p>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

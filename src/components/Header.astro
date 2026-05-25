@@ -1,0 +1,88 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b" style="border-color: var(--color-border);">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
+    <a href="/" class="font-display text-xl font-semibold no-underline" style="color: var(--color-fg); font-family: var(--font-display);">
+      Justin Spidell
+    </a>
+
+    <nav class="hidden items-center gap-6 md:flex" aria-label="Main">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'text-sm no-underline transition-colors',
+              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                ? 'font-semibold'
+                : '',
+            ]}
+            style:color={
+              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                ? 'var(--color-accent)'
+                : 'var(--color-muted)'
+            }
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+
+    <div class="flex items-center gap-3 md:hidden">
+      <ThemeToggle />
+      <button
+        type="button"
+        id="nav-toggle"
+        class="rounded-md border px-3 py-1.5 text-sm"
+        style="border-color: var(--color-border); color: var(--color-muted);"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        Menu
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="hidden border-t px-6 py-4 md:hidden"
+    style="border-color: var(--color-border);"
+    aria-label="Mobile"
+  >
+    <ul class="flex flex-col gap-3">
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href} class="text-base no-underline" style="color: var(--color-fg);">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = mobileNav?.classList.toggle('hidden') === false;
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

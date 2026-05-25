@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedBlogPosts } from '../../utils/collections';
+
+const posts = await getPublishedBlogPosts();
+---
+
+<BaseLayout
+  title="Blog"
+  description="Writing on projects, tools, and things I'm learning."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+    <h1 class="text-4xl md:text-5xl">Blog</h1>
+    <p class="mt-4 text-lg" style="color: var(--color-muted);">
+      Notes and longer-form posts. Draft entries are hidden from this list.
+    </p>
+    <div class="mt-12">
+      {posts.length === 0 ? (
+        <p style="color: var(--color-muted);">No posts yet.</p>
+      ) : (
+        posts.map((post) => <PostCard post={post} />)
+      )}
+    </div>
+  </section>
+</BaseLayout>

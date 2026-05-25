@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <article class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+    <p class="text-sm" style="color: var(--color-muted);">{formatDate(project.data.pubDate)}</p>
+    <h1 class="mt-2 text-4xl md:text-5xl">{project.data.title}</h1>
+    <p class="mt-4 text-lg" style="color: var(--color-muted);">{project.data.description}</p>
+
+    {
+      (project.data.url || project.data.repo) && (
+        <div class="mt-6 flex flex-wrap gap-4">
+          {project.data.url && (
+            <a href={project.data.url} class="text-sm font-medium no-underline" rel="noopener noreferrer">
+              Live demo →
+            </a>
+          )}
+          {project.data.repo && (
+            <a href={project.data.repo} class="text-sm font-medium no-underline" rel="noopener noreferrer">
+              Repository →
+            </a>
+          )}
+        </div>
+      )
+    }
+
+    {
+      project.data.tags && project.data.tags.length > 0 && (
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {project.data.tags.map((tag) => (
+            <li
+              class="rounded-full px-2.5 py-0.5 text-xs"
+              style="background: var(--color-surface); color: var(--color-muted); border: 1px solid var(--color-border);"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="prose mt-12">
+      <Content />
+    </div>
+
+    <p class="mt-12">
+      <a href="/projects" class="text-sm no-underline">← All projects</a>
+    </p>
+  </article>
+</BaseLayout>
