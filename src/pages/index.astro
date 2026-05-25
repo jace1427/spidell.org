@@ -17,26 +17,25 @@ const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
 >
   <div
     class="pointer-events-none fixed inset-0 -z-10"
-    style="opacity: var(--glow-opacity);"
-    style="background: radial-gradient(ellipse 100% 50% at 50% 0%, var(--color-accent), transparent);"
+    style="opacity: var(--glow-opacity); background: radial-gradient(ellipse 100% 50% at 50% 0%, var(--color-accent), transparent);"
   />
   <div class="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
     <div class="grid gap-12 md:grid-cols-2 md:gap-16">
-      <section class="flex flex-col hero-text">
-        <div class="mb-5 h-0.5 w-20 hero-bar" style="background: var(--color-accent);" />
+      <section class="relative flex flex-col hero-text overflow-hidden">
+<div class="mb-5 h-1 w-20 rounded-full hero-bar" style="background: var(--color-accent);" />
         <h1 class="text-4xl md:text-5xl lg:text-6xl hero-h1">
-          Justin Spidell
+          Site Reliability Engineer
         </h1>
         <div class="flex flex-1 items-center mt-6 hero-body">
           <div>
             <p class="text-lg" style="color: var(--color-muted);">
-              Site Reliability Engineer at TikTok US Data Security Joint Venture.
+              At TikTok US Data Security Joint Venture.
             </p>
             <ul class="mt-4 flex flex-wrap gap-2">
               {['AI', 'Embedded systems', 'Unix'].map((tag) => (
                 <li
-                  class="rounded-full border px-3 py-1 text-sm"
-                  style="border-color: var(--color-accent); color: var(--color-accent);"
+                  class="rounded-full px-3 py-1 text-sm font-medium"
+                  style="background: var(--color-accent); color: var(--color-accent-fg);"
                 >
                   {tag}
                 </li>

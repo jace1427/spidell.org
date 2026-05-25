@@ -14,7 +14,7 @@
   --color-accent-fg: #ffffff;
   --color-border: #d4d0c4;
   --color-surface: #ffffff;
-  --glow-opacity: 0.12;
+  --glow-opacity: 0.28;
 }
 
 [data-theme="dark"] {
@@ -26,7 +26,7 @@
   --color-accent-fg: #1a1a18;
   --color-border: #2e2e2a;
   --color-surface: #1e1e1c;
-  --glow-opacity: 0.08;
+  --glow-opacity: 0.14;
 }
 
 html {
@@ -36,8 +36,14 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
+  background-image: radial-gradient(circle, rgba(45, 106, 79, 0.18) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
   color: var(--color-fg);
   line-height: 1.65;
+}
+
+[data-theme="dark"] body {
+  background-image: none;
 }
 
 h1,
