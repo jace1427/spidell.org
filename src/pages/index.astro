@@ -16,11 +16,8 @@ const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
   description="Personal site — projects, blog, and contact."
 >
   <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
-    <p class="text-sm font-medium uppercase tracking-widest" style="color: var(--color-accent);">
-      justin.spidell.org
-    </p>
-    <h1 class="mt-4 max-w-2xl text-4xl md:text-5xl lg:text-6xl">
-      Hi, I'm Justin — I build software and write about what I learn.
+    <h1 class="max-w-2xl text-4xl md:text-5xl lg:text-6xl">
+      Justin Spidell
     </h1>
     <p class="mt-6 max-w-xl text-lg" style="color: var(--color-muted);">
       SRE at TikTok USDS JV. Interested in AI, embedded systems, and Unix. Explore projects, read the blog, or get in touch.
@@ -34,11 +31,11 @@ const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
         View projects
       </a>
       <a
-        href="/contact"
+        href="/about"
         class="inline-block rounded-md border px-5 py-2.5 text-sm font-medium no-underline"
         style="border-color: var(--color-border); color: var(--color-fg);"
       >
-        Contact
+        About
       </a>
     </div>
   </section>
