@@ -1,0 +1,29 @@
+---
+title: "Killing Handover Toil with Scheduled AI Agents"
+description: "How we automated the weekly oncall handover report — screenshots, alarm summaries, and all — for four teams using scheduled AI tasks."
+pubDate: 2026-05-25
+tags: [sre, oncall, automation, ai]
+draft: false
+---
+
+# Killing the Handover Toil
+
+As a SRE team that supports around 90 software engineers, a pain point of ours was the handover. 4 times a week we sit through a 30 minute meeting going into detail on every alarm, creating action items and doing post-mortem.
+
+## The Process
+
+End of oncall shift, you sit down and reconstruct the week. Screenshot every alarm that fired. Pull up the dashboards, screenshot the graphs that explain what happened, remember that a log perfectly encapsulated the bug. Where was that log again? Go looking for the log. Write notes for each alarm, then, when you're done, get some long term data on trends for alarms. New noisy alarms, new buggy services, etc.
+
+Then do it again for each of the four teams we support, each with their own doc, their own format, and their own requirements.
+
+## What We Built
+
+A scheduled agent that screenshots the key dashboards for each team on a regular cadence. Timestamped and dropped into the right place automatically. This sounds almost too simple to mention, but it made a real difference. No more hunting through Grafana at handover time, no more "which dashboard was that again", instead just a group chat with all the records you need.
+
+An AI agent that sits in the alarm channels throughout the week. Every time an alert fires, it reads the thread, grabs all the replies and context, and writes a summary. On the day of the handover, it generates a doc complete with every alarm of note and a summary of it's investigation and status. It's not perfect, but it certainly is better than nothing. The outgoing engineer reads through, edits anything that needs more nuance, and sends it.
+
+## The Result
+
+The meetings are much better. People come in having actually read the doc, the context is there, and we spend the time on decisions instead of "uhhhhh I don't quite remember this one...". The oncall engineer isn't dreading the last hour of their shift anymore.
+
+Didn't need to reinvent anything — just removed the friction that was stopping it from getting done properly.

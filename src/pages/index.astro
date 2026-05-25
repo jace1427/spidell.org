@@ -15,40 +15,48 @@ const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
   title="Justin Spidell"
   description="Personal site — projects, blog, and contact."
 >
-  <section class="mx-auto max-w-6xl px-6 py-16 md:py-24">
-    <h1 class="max-w-2xl text-4xl md:text-5xl lg:text-6xl">
-      Justin Spidell
-    </h1>
-    <p class="mt-6 max-w-xl text-lg" style="color: var(--color-muted);">
-      SRE at TikTok USDS JV. Interested in AI, embedded systems, and Unix. Explore projects, read the blog, or get in touch.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a
-        href="/projects"
-        class="inline-block rounded-md px-5 py-2.5 text-sm font-medium no-underline"
-        style="background: var(--color-accent); color: var(--color-accent-fg);"
-      >
-        View projects
-      </a>
-      <a
-        href="/about"
-        class="inline-block rounded-md border px-5 py-2.5 text-sm font-medium no-underline"
-        style="border-color: var(--color-border); color: var(--color-fg);"
-      >
-        About
-      </a>
-    </div>
-  </section>
+  <div
+    class="pointer-events-none fixed inset-0 -z-10"
+    style="opacity: var(--glow-opacity);"
+    style="background: radial-gradient(ellipse 100% 50% at 50% 0%, var(--color-accent), transparent);"
+  />
+  <div class="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="grid gap-12 md:grid-cols-2 md:gap-16">
+      <section class="flex flex-col hero-text">
+        <div class="mb-5 h-0.5 w-20 hero-bar" style="background: var(--color-accent);" />
+        <h1 class="text-4xl md:text-5xl lg:text-6xl hero-h1">
+          Justin Spidell
+        </h1>
+        <div class="flex flex-1 items-center mt-6 hero-body">
+          <div>
+            <p class="text-lg" style="color: var(--color-muted);">
+              Site Reliability Engineer at TikTok US Data Security Joint Venture.
+            </p>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {['AI', 'Embedded systems', 'Unix'].map((tag) => (
+                <li
+                  class="rounded-full border px-3 py-1 text-sm"
+                  style="border-color: var(--color-accent); color: var(--color-accent);"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-  <section class="mx-auto max-w-6xl px-6 pb-16">
-    <div class="mb-8 flex items-end justify-between gap-4">
-      <h2 class="text-2xl md:text-3xl">Featured projects</h2>
-      <a href="/projects" class="text-sm no-underline">All projects →</a>
+      <section class="hero-projects">
+        <div class="mb-8 flex items-end justify-between gap-4">
+          <h2 class="text-2xl md:text-3xl">Featured projects</h2>
+          <a href="/projects" class="text-sm no-underline">All projects →</a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {featuredProjects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </section>
     </div>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {featuredProjects.map((project) => <ProjectCard project={project} />)}
-    </div>
-  </section>
+  </div>
 
   <section class="mx-auto max-w-6xl border-t px-6 py-16" style="border-color: var(--color-border);">
     <div class="mb-8 flex items-end justify-between gap-4">
@@ -60,3 +68,15 @@ const recentPosts = (await getPublishedBlogPosts()).slice(0, 3);
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-bar     { animation: fade-up 0.4s ease both; animation-delay: 0ms; }
+  .hero-h1      { animation: fade-up 0.5s ease both; animation-delay: 80ms; }
+  .hero-body    { animation: fade-up 0.5s ease both; animation-delay: 180ms; }
+  .hero-projects { animation: fade-up 0.5s ease both; animation-delay: 260ms; }
+</style>
