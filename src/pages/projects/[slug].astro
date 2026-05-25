@@ -1,7 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RepoStats from '../../components/RepoStats.astro';
 import { formatDate } from '../../utils/date';
+import { fetchRepoStats } from '../../utils/github';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -13,6 +15,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const repoStats = project.data.repo ? await fetchRepoStats(project.data.repo) : null;
 ---
 
 <BaseLayout title={project.data.title} description={project.data.description}>
@@ -22,19 +25,26 @@ const { Content } = await render(project);
     <p class="mt-4 text-lg" style="color: var(--color-muted);">{project.data.description}</p>
 
     {
-      (project.data.url || project.data.repo) && (
-        <div class="mt-6 flex flex-wrap gap-4">
-          {project.data.url && (
-            <a href={project.data.url} class="text-sm font-medium no-underline" rel="noopener noreferrer">
-              Live demo →
-            </a>
-          )}
-          {project.data.repo && (
-            <a href={project.data.repo} class="text-sm font-medium no-underline" rel="noopener noreferrer">
-              Repository →
-            </a>
-          )}
+      project.data.url && (
+        <div class="mt-6">
+          <a href={project.data.url} class="text-sm font-medium no-underline" rel="noopener noreferrer">
+            Live demo →
+          </a>
         </div>
+      )
+    }
+
+    {
+      project.data.repo && (
+        repoStats
+          ? <RepoStats repoUrl={project.data.repo} stats={repoStats} />
+          : (
+            <div class="mt-6">
+              <a href={project.data.repo} class="text-sm font-medium no-underline" rel="noopener noreferrer">
+                Repository →
+              </a>
+            </div>
+          )
       )
     }
 

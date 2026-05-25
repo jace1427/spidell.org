@@ -11,6 +11,7 @@
   --color-muted: #5c5c56;
   --color-accent: #2d6a4f;
   --color-accent-hover: #1b4332;
+  --color-accent-fg: #ffffff;
   --color-border: #d4d0c4;
   --color-surface: #ffffff;
 }
@@ -21,6 +22,7 @@
   --color-muted: #a8a89e;
   --color-accent: #52b788;
   --color-accent-hover: #74c69d;
+  --color-accent-fg: #1a1a18;
   --color-border: #2e2e2a;
   --color-surface: #1e1e1c;
 }
